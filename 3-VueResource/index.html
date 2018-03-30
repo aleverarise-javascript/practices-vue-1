@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+	
+	<div id="main" class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1>Lista VueJS Ajax</h1>
+				<ul class="list-group">
+					<!-- <li v-for="item in list" class="list-group-item">{{ item.name.first }} {{ item.name.last }}</li> -->
+					<li v-for="item in list" class="list-group-item">{{ item.name }} {{ item.username }}</li>
+				</ul>
+			</div>
+			<div class="col-sm-8">
+				<h1>JSON</h1>
+				<pre>
+					{{$data | json}}
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	<script src="vue.min.js"></script>
+	<script src="vue-resource.min.js"></script>
+
+	<script>
+
+		// var urlUser = 'https://randomuser.me/api/?results=10';
+		var urlUser = 'https://jsonplaceholder.typicode.com/users';
+		new Vue({
+			el: '#main',
+			created: function(){
+				this.getUsers();
+			},
+			data: {
+				list: []
+			},
+			methods: {
+				getUsers: function(){
+					this.$http.get(urlUser).then(function(response){
+						// this.list = response;
+						this.list = response.data;
+						// this.list = response.data.results;
+					});
+				}
+			}
+		});
+		
+	</script>
+</body>
+</html>
